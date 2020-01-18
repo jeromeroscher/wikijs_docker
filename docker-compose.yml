@@ -9,7 +9,12 @@ services:
       POSTGRES_USER: ${WIKIJS_POSTGRES_USER}
     logging:
       driver: "none"
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: none
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     volumes:
       - ${USERDIR}/wiki/db-data:/var/lib/postgresql/data
 
@@ -24,6 +29,11 @@ services:
       DB_USER: ${WIKIJS_POSTGRES_USER}
       DB_PASS: ${WIKIJS_POSTGRES_PW}
       DB_NAME: ${WIKIJS_POSTGRES_DB}
-    restart: unless-stopped
+    deploy:
+      restart_policy:
+        condition: none
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     ports:
-      - "80:3000"
+      - "${WIKIJS_PORT}:3000"
