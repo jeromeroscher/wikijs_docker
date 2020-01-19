@@ -20,11 +20,11 @@ services:
 
   wiki:
     image: requarks/wiki:2
-    depends_on:
-      - db
+    links:
+      - wikidb
     environment:
       DB_TYPE: postgres
-      DB_HOST: db
+      DB_HOST: wikidb
       DB_PORT: ${WIKIJS_POSTGRES_DB_PORT}
       DB_USER: ${WIKIJS_POSTGRES_USER}
       DB_PASS: ${WIKIJS_POSTGRES_PW}
